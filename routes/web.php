@@ -14,3 +14,9 @@
 Route::get('/','PageController@getIndex');
 
 Route::get('/about', 'PageController@getAbout');
+
+Route::get('/movies', 'PageController@getMovies');
+
+Route::get('/contact', 'PageController@getContact');
+
+Route::resource('/movies', 'MoviesController');

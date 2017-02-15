@@ -14,18 +14,16 @@
          <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-              <li><a href="./">Home</a></li>
-              <li><a href="./about">About</a></li> 
-              <li><a href="./movies">Movies</a></li>  
-              <li><a href="./contact">Contact</a></li>    
+              <li><a href="/">Home</a></li>
+              <li><a href="/about">About</a></li> 
+              <li><a href="/movies">Movies</a></li>  
+              <li><a href="/contact">Contact</a></li>    
             </ul>        
 
-            <ul>
+            <ul class="nav navbar-nav">
 
-              <li><a href=".\?page=register">Register</a></li>
-              <li><a href=".\?page=login">Login</a></li>  
-
-            
+              <li><a href="/register">Register</a></li>
+              <li><a href="/login">Login</a></li>             
 
             </ul> 
 

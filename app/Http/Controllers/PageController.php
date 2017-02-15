@@ -10,10 +10,18 @@ class PageController extends Controller
 		return view('welcome')->withTitle($title)->withCaption($caption);
 	}
 	public function getAbout(){
+
+		return view('about');
+	}
+	public function getMovies(){
+
+		return view('movies');
+	}
+	public function getContact(){
 		$data = [];
 		$data['username'] = "sindhu";
 		$data['email']="sindhuss@gmail.com";
 
-		return view('about')->withData($data);
+		return view('contact')->withData($data);
 	}
 }
