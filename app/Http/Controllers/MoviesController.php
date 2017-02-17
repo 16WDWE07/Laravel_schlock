@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Movies;
+use Mail;
 
 class MoviesController extends Controller
 {
@@ -147,7 +148,45 @@ class MoviesController extends Controller
         $movie = Movies::where('title', $title)->first();
         return view('movieshow')->withMovie($movie);
     }
+    public function postSuggestMovie(Request $request)
+    {
+        $this->validate($request,[
+            'title' =>'required|min:3',
+            'email' =>'required|email'
+        ]);
+
+        $data=[
+            'email'     => $request->email,
+            'title'     => $request->title,
+            'checkbox'  => $request->checkbox
+        ];
+        Mail::send('suggesteremail', $data , function($message) use ($data){
+            //header info
+            $message->from('Schlockpickers@mailgun.org');
+            $message->to($data['email']);
+            $message->subject('Thank you for suggesting '. $data['title']);
+        });
+        return redirect()->action("PageController@getIndex");
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

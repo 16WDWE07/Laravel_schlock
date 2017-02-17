@@ -26,6 +26,15 @@ Route::get('/movies/{movie}',
 			'as'=>'movies.featured', 
 			'uses' =>'MoviesController@getFeaturedmovie'
 		]);
+Route::post('/movies/suggestmovie',
+		[
+			'as'=>'movies.suggestmovie', 
+			'uses' =>'MoviesController@postSuggestMovie'
+		]);
+
+
+
+
 
 
 

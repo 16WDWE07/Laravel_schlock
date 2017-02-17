@@ -26,19 +26,20 @@
         <div class="col-sm-4">
           <h3 class="text-center"> Movie Suggest </h3>
 
-          <form class="form-horizontal" method="post" action=".\?page=moviesuggest">
+          <form class="form-horizontal" method="post" action="/movies/suggestmovie">
+            {{ csrf_field() }}
             <div class="form-group">
               <label for="email" class="col-sm-2 control-label">Email</label>
               <div class="col-sm-10">
                 <input type="email" class="form-control" id="email" placeholder="Email" name="email">
-                
+                <span class="text-danger">{{ $errors->first('email')}}</span>
               </div>
             </div>
             <div class="form-group">
               <label for="title" class="col-sm-2 control-label">Movie Title</label>
               <div class="col-sm-10">
                 <input type="text" class="form-control" id="title" placeholder="Troll 2" name="title" >
-                
+                <span class="text-danger">{{ $errors->first('title')}}</span>
               </div>
             </div>
             <div class="form-group">
@@ -56,6 +57,7 @@
             </div>
           </div>
         </form>
+
         </div>
         <div class="col-sm-4">
           <h3 class="text-center"> Our Sponsors </h3>
