@@ -20,3 +20,18 @@ Route::get('/movies', 'PageController@getMovies');
 Route::get('/contact', 'PageController@getContact');
 
 Route::resource('/movies', 'MoviesController');
+
+Route::get('/movies/{movie}', 
+		[
+			'as'=>'movies.featured', 
+			'uses' =>'MoviesController@getFeaturedmovie'
+		]);
+
+
+
+
+
+
+
+
+

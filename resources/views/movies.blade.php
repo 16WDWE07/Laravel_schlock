@@ -8,5 +8,25 @@
 
 		  <a href="/movies/create" class="btn btn-default">Add Movie</a>	  
 		</div>
+		@if(count($movies) > 0)
+			
+			@foreach($movies as $movie)
+				<li><a href="/movies/{{ $movie->title }}">{{ $movie->title }} {{"-"}} {{ $movie->year }}</a></li>
+			@endforeach
+			
+		@else
+			<p>Weirdly enough!!! No records to display.</p>
+		@endif
+	</div>
+	<div class="text-center">
+		{{ $movies->links() }}
 	</div>
 @endsection
+
+
+
+
+
+
+
+

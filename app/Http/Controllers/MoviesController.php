@@ -14,7 +14,9 @@ class MoviesController extends Controller
      */
     public function index()
     {
-        return view('movies');
+        // $movie = Movies::all();
+        $movies = Movies::orderBy('title','desc')->paginate(5);
+        return view('movies')->withMovies($movies);
     }
 
     /**
@@ -24,7 +26,9 @@ class MoviesController extends Controller
      */
     public function create()
     {
-        return view('moviecreate');
+        $state = "Add";
+        $action = "/movies";
+        return view('moviecreate')->withState($state)->withAction($action);
     }
 
     /**
@@ -55,7 +59,7 @@ class MoviesController extends Controller
         $movie->save();
         
         //redirect
-        return redirect()->route('movies.show', $movie->id);
+        return redirect()->route('movies.featured', $movie->title);
     }
 
     /**
@@ -78,7 +82,10 @@ class MoviesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $movie = Movies::find($id);
+        $state = "Edit";
+        $action = "/movies/".$movie->id;
+        return view('moviecreate', compact('movie','state','action'));
     }
 
     /**
@@ -90,7 +97,37 @@ class MoviesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //find the record
+        $movie = Movies::find($id);
+
+        if($request->input('title') === $movie->title){
+
+            //validating the form
+            $this->validate($request, [
+                'year'  => 'required|numeric',
+                'description' => 'required|min:5'
+            ]);
+
+        } else {
+
+            //validating the form
+            $this->validate($request, [
+                'title' => 'required|unique:movies|min:3|max:55',
+                'year'  => 'required|numeric',
+                'description' => 'required|min:5'
+            ]);
+        }
+        //attach request to the object  
+
+        $movie->title = $request->title;
+        $movie->year = $request->year;
+        $movie->description =$request->description;
+        
+        //save
+        $movie->save();
+        
+        //redirect
+        return redirect()->route('movies.featured', $movie->title);
     }
 
     /**
@@ -101,6 +138,27 @@ class MoviesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $movie = Movies::find($id);
+        $movie->delete();
+        return redirect()->route('movies.index');
+    }
+    public function getFeaturedmovie($title)
+    {
+        $movie = Movies::where('title', $title)->first();
+        return view('movieshow')->withMovie($movie);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
