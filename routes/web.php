@@ -32,9 +32,11 @@ Route::post('/movies/suggestmovie',
 			'uses' =>'MoviesController@postSuggestMovie'
 		]);
 
+// Authentication
 
+Auth::routes();
 
-
+Route::get('/home', 'HomeController@index');
 
 
 

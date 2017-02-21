@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Movies;
 use Mail;
+use Image;
 
 class MoviesController extends Controller
 {
@@ -45,7 +46,8 @@ class MoviesController extends Controller
         $this->validate($request, [
             'title' => 'required|unique:movies|min:3|max:55',
             'year'  => 'required|numeric',
-            'description' => 'required|min:5'
+            'description' => 'required|min:5',
+            'poster' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         //attach request to the object
@@ -55,7 +57,25 @@ class MoviesController extends Controller
         $movie->title = $request->title;
         $movie->year = $request->year;
         $movie->description =$request->description;
-        
+
+        //saving images
+
+        $poster = $request->file('poster');
+        $filename = uniqid(). ".". $poster->getClientOriginalExtension();
+
+        //saving thumbnail images
+        $destination = public_path('images/thumbnail');
+        $thumbnailImage = Image::make($poster->getRealPath())->resize(80,80);
+        $thumbnailImage->save($destination. "/".$filename);
+
+        //save original image
+        $destination = public_path('images/original');
+        $originalImage = Image::make($poster->getRealPath())->resize(300,300);
+        $originalImage->save($destination. "/" . $filename);
+
+        //attach the file to movie object
+        $movie->poster = $filename;
+           
         //save
         $movie->save();
         

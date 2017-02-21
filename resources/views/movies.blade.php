@@ -4,9 +4,14 @@
 	<div class="row">
 		<div class="col-xs-12">
 		  <h1>Schlocktoberfest <small>The Best Worst Movie Festival Ever !</small></h1>
-		  <h2>Movies</h2>	
+		  <h2>Movies</h2>
+		  
+		  @if(! Auth::guest())	
+			  @if (Auth::user()->role === "admin")
+			  <a href="/movies/create" class="btn btn-default">Add Movie</a>
+			  @endif
+		  @endif
 
-		  <a href="/movies/create" class="btn btn-default">Add Movie</a>	  
 		</div>
 		@if(count($movies) > 0)
 			

@@ -37,7 +37,7 @@
 		<label for="poster" class="col-sm-2 control-label">Poster</label>
 		<div class="col-sm-10">
 			<input type="file" class="form-control" name="poster" id="poster">
-			<span class="text-danger"></span>
+			<span class="text-danger">{{ $errors->first('poster') }}</span>
 		</div>
 	</div>
 
